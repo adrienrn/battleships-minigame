@@ -1,6 +1,8 @@
 import { useMemo } from "preact/hooks";
 import "./app.css";
 import { BMGBattleground } from "./components/BMGBattleground/BMGBattleground";
+import { createShip } from "./logic/createShip";
+import { Ship, ShipOrientation, ShipType } from "./types/Ship";
 
 function generateBattleground() {
   const alphabet = [...new Array(26)].map((_, i) => i + 65);
@@ -10,28 +12,32 @@ function generateBattleground() {
 }
 
 function generateShips() {
-  return [
-    {
-      cells: [0, 1, 2, 3],
-      type: "A",
-    },
-    {
-      cells: [46, 56, 66, 76],
-      type: "A",
-    },
-    {
-      cells: [80, 81, 82, 83, 84],
-      type: "B",
-    },
-  ];
+  const ships: Ship[] = [];
+
+  [ShipType.BATTLESHIP, ShipType.DESTROYER, ShipType.DESTROYER].forEach(
+    (currentType: ShipType) => {
+      ships.push(
+        createShip(
+          currentType,
+          Math.floor(Math.random() * 2) === 0
+            ? ShipOrientation.HORIZONTAL
+            : ShipOrientation.VERTICAL,
+          ships
+        )
+      );
+    }
+  );
+
+  return ships;
 }
 
 export function App() {
   const battlegroundCells = useMemo(() => generateBattleground(), []);
+  const ships = useMemo(() => generateShips(), []);
 
   return (
     <>
-      <BMGBattleground cells={battlegroundCells} ships={generateShips()} />
+      <BMGBattleground cells={battlegroundCells} ships={ships} />
     </>
   );
 }

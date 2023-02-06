@@ -1,18 +1,15 @@
 import Preact from "preact";
+import type { Ship } from "../../types/Ship";
 import styles from "./BMGBattleground.module.css";
 
 export const BMGBattleground: Preact.FunctionComponent<{
   cells: string[];
-  ships: any[];
+  ships: Ship[];
 }> = ({ cells = [], ships = [] }) => {
   return (
     <div class={styles["BMGBattleground__grid"]}>
       {cells.map((e, i) => {
         const hasShipAtCoordinates = ships.some((value) => {
-          console.log(
-            value,
-            value.cells.some((e: any) => e === i)
-          );
           return value.cells.some((e: any) => e === i);
         });
         return (
