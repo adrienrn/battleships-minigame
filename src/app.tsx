@@ -1,32 +1,37 @@
-import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import './app.css'
+import { useMemo } from "preact/hooks";
+import "./app.css";
+import { BMGBattleground } from "./components/BMGBattleground/BMGBattleground";
+
+function generateBattleground() {
+  const alphabet = [...new Array(26)].map((_, i) => i + 65);
+  return [...Array(100)].map((_, i) => {
+    return String.fromCharCode(alphabet[i % 10]) + Math.floor(i / 10 + 1);
+  });
+}
+
+function generateShips() {
+  return [
+    {
+      cells: [0, 1, 2, 3],
+      type: "A",
+    },
+    {
+      cells: [46, 56, 66, 76],
+      type: "A",
+    },
+    {
+      cells: [80, 81, 82, 83, 84],
+      type: "B",
+    },
+  ];
+}
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const battlegroundCells = useMemo(() => generateBattleground(), []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
-      </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/app.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
+      <BMGBattleground cells={battlegroundCells} ships={generateShips()} />
     </>
-  )
+  );
 }
