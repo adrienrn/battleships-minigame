@@ -1,4 +1,4 @@
-.Board__grid {
+.Board {
   --board-tile-size: 50px;
   --board-tile-border-width: 1px;
   display: grid;
@@ -7,7 +7,7 @@
   padding-top: var(--board-tile-border-width);
 }
 
-.Board__grid__item {
+.Board__cell {
   border: 1px solid #15616d;
   height: var(--board-tile-size);
   margin-left: calc(-1 * var(--board-tile-border-width));
@@ -16,13 +16,13 @@
   width: --board-tile-size(--board-tile-size);
 }
 
-.Board__grid__ship-marker {
+.Board__cell__ship-marker {
   bottom: 0;
   position: absolute;
   right: 0;
 }
 
-.Board__grid__ship-marker__icon {
+.Board__cell__ship-marker__icon {
   display: block;
   fill: #fcca46;
   height: 1em;
