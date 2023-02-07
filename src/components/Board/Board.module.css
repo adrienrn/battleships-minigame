@@ -1,83 +1,28 @@
 .Board__grid {
+  --board-tile-size: 50px;
+  --board-tile-border-width: 1px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  padding-left: 1px;
-  padding-top: 1px;
+  padding-left: var(--board-tile-border-width);
+  padding-top: var(--board-tile-border-width);
 }
 
-.Board__cell {
+.Board__grid__item {
   border: 1px solid #15616d;
+  height: var(--board-tile-size);
+  margin-left: calc(-1 * var(--board-tile-border-width));
+  margin-top: calc(-1 * var(--board-tile-border-width));
   position: relative;
-  height: 50px;
-  margin-left: -1px;
-  margin-top: -1px;
-  width: 50px;
+  width: --board-tile-size(--board-tile-size);
 }
 
-.Board__cell--empty {
-  background: #15616d;
-}
-
-.Board__cell--hit {
-  background: #15616d;
-}
-
-.Board__cell--hit > svg {
-  fill: #e63946;
-  height: 100%;
-  padding: 0.6em;
-  width: 100%;
-}
-
-.Board__cell--unknown {
-  background-color: #001524;
-}
-
-.Board__cell--unknown > svg {
-  fill: #267373;
-  height: 100%;
-  padding: 0.5em;
-  width: 100%;
-}
-
-.Board__cell__state {
-  bottom: 0;
-  font-size: 0.6em;
-  font-weight: bold;
-  left: 0;
-  padding: 0 0.2em;
-  position: absolute;
-  text-align: left;
-  text-transform: uppercase;
-}
-
-.Board__cell__state--empty {
-  background-color: rgba(255, 255, 255, 0.85);
-  color: #15616d;
-}
-
-.Board__cell__state--hit {
-  background-color: #fff;
-  color: #e63946;
-}
-
-.Board__cell__label {
-  font-size: 0.6em;
-  left: 0;
-  padding: 0 0.4em;
-  position: absolute;
-  text-align: left;
-  top: 0;
-  width: 100%;
-}
-
-.Board__cell__ship {
+.Board__grid__ship-marker {
   bottom: 0;
   position: absolute;
   right: 0;
 }
 
-.Board__cell__ship svg {
+.Board__grid__ship-marker__icon {
   display: block;
   fill: #fcca46;
   height: 1em;

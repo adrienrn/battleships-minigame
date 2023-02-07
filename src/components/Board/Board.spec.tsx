@@ -1,11 +1,14 @@
 import { render, within } from "@testing-library/react";
+import { createShip } from "../../logic/createShip";
 import { generateBoard } from "../../logic/generateBoard";
-import { BoardCellState } from "../../types/Board";
+import { ShipOrientation, ShipType } from "../../types/Ship";
 import { Board } from "./Board";
 
 describe("Board", () => {
   it("Renders the board", () => {
-    const screen = render(<Board cells={generateBoard(10)} ships={[]} />);
+    const screen = render(
+      <Board cells={generateBoard()} ships={[]} shots={[]} />
+    );
 
     // Check we render from A1 to J10
     expect(screen.getByText("A1")).toBeDefined();
@@ -18,11 +21,15 @@ describe("Board", () => {
   });
 
   it("renders hit marker if cell state is HIT", () => {
-    const boardCells = generateBoard(10);
-    // Update a cell to "Hit!"
-    boardCells[11].state = BoardCellState.HIT;
-
-    const screen = render(<Board cells={boardCells} ships={[]} />);
+    const screen = render(
+      <Board
+        cells={generateBoard()}
+        ships={[
+          createShip(11, ShipType.BATTLESHIP, ShipOrientation.HORIZONTAL),
+        ]}
+        shots={[11]}
+      />
+    );
 
     const missElement = screen.getByText("Hit!").parentElement as HTMLElement;
     expect(missElement).toBeDefined();
@@ -30,11 +37,15 @@ describe("Board", () => {
   });
 
   it("renders miss marker if cell state is MISS", () => {
-    const boardCells = generateBoard(10);
-    // Update a cell to "Miss!"
-    boardCells[29].state = BoardCellState.MISS;
-
-    const screen = render(<Board cells={boardCells} ships={[]} />);
+    const screen = render(
+      <Board
+        cells={generateBoard()}
+        ships={[
+          createShip(11, ShipType.BATTLESHIP, ShipOrientation.HORIZONTAL),
+        ]}
+        shots={[29]}
+      />
+    );
 
     const missElement = screen.getByText("Miss!").parentElement as HTMLElement;
     expect(missElement).toBeDefined();
