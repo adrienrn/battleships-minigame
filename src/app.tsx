@@ -11,9 +11,12 @@ export function App() {
     ShipType.DESTROYER,
     ShipType.DESTROYER,
   ];
+  const [isDebugEnabled, setIsDebugEnabled] = useState<boolean>(false);
   const battlegroundCells = useMemo(() => generateBoard(), []);
-  const [ships, setShips] = useState(generateShips(startingArmada));
-  const [isDebugEnabled, setIsDebugEnabled] = useState(false);
+  const [ships, setShips] = useState<Ship[]>(generateShips(startingArmada));
+
+  // This is a temporary minimal input for playing, this will be addressed in next PR.
+  const [shotsAsString, setShotsAsString] = useState<string>("23,24");
 
   const reset = useCallback(() => {
     setShips(generateShips(startingArmada));
@@ -31,7 +34,19 @@ export function App() {
         }}
         type="checkbox"
       />
-      <Board cells={battlegroundCells} debug={isDebugEnabled} ships={ships} />
+      <input
+        onChange={(e) => {
+          setShotsAsString(e.target.value);
+        }}
+        value={shotsAsString}
+        type="text"
+      />
+      <Board
+        cells={battlegroundCells}
+        debug={isDebugEnabled}
+        ships={ships}
+        shots={shotsAsString.split(",").map((v) => parseInt(v, 10))}
+      />
     </>
   );
 }
