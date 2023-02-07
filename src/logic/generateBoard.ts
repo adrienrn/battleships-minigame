@@ -1,4 +1,4 @@
-import { BoardCell, BoardCellState } from "../types/Board";
+import { BoardCell } from "../types/Board";
 
 const ALPHABET = [...new Array(26)].map((_, i) => i + 65);
 
@@ -9,7 +9,6 @@ export function generateBoard(areaSize = 10): BoardCell[] {
       label:
         String.fromCharCode(ALPHABET[i % areaSize]) +
         Math.floor(i / areaSize + 1),
-      state: BoardCellState.UNKNOWN,
     };
   });
 }
