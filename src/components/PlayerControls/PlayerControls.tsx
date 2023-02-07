@@ -39,7 +39,7 @@ export const PlayerControls: React.FC<{
         onChange={(e) => {
           setValue(e.target.value);
         }}
-        placeholder="Enter tile..."
+        placeholder="Enter tile name..."
         type="text"
         value={value}
       />
