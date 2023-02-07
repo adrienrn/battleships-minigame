@@ -1,5 +1,5 @@
-import { Ship, ShipOrientation, ShipType } from "../types/Ship";
-import { getRandomInt } from "../utils/getRandomInt";
+import { Ship, ShipOrientation, ShipType } from "../../types/Ship";
+import { getRandomInt } from "../../utils/getRandomInt";
 
 const shipLengths = {
   [ShipType.BATTLESHIP]: 5,

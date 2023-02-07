@@ -1,4 +1,4 @@
-import { ShipOrientation, ShipType } from "../types/Ship";
+import { ShipOrientation, ShipType } from "../../types/Ship";
 import { createShip, detectCollisionWithObjects } from "./createShip";
 
 describe("createShip", () => {

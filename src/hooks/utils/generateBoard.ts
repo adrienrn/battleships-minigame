@@ -1,4 +1,4 @@
-import { BoardCell } from "../types/Board";
+import { BoardCell } from "../../types/Board";
 
 const ALPHABET = [...new Array(26)].map((_, i) => i + 65);
 
