@@ -1,6 +1,6 @@
 import { render, within } from "@testing-library/react";
-import { createShip } from "../../logic/createShip";
-import { generateBoard } from "../../logic/generateBoard";
+import { createShip } from "../../hooks/utils/createShip";
+import { generateBoard } from "../../hooks/utils/generateBoard";
 import { ShipOrientation, ShipType } from "../../types/Ship";
 import { Board } from "./Board";
 

@@ -8,7 +8,6 @@
 }
 
 .Board__cell {
-  border: 1px solid #15616d;
   height: var(--board-tile-size);
   margin-left: calc(-1 * var(--board-tile-border-width));
   margin-top: calc(-1 * var(--board-tile-border-width));

@@ -1,4 +1,5 @@
 .Tile {
+  border: 1px solid #15616d;
   height: 100%;
   width: 100%;
 }

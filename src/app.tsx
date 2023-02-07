@@ -1,32 +1,66 @@
-import { useCallback, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./app.css";
+import { Banner, BannerVariant } from "./components/Banner/Banner";
 import { Board } from "./components/Board/Board";
-import { createShipAtRandomPosition } from "./logic/createShip";
-import { generateBoard } from "./logic/generateBoard";
-import { Ship, ShipType } from "./types/Ship";
+import { PlayerControls } from "./components/PlayerControls/PlayerControls";
+import { useBattleshipsMinigame } from "./hooks/useBattleshipsMiniGame";
+import { ShipType } from "./types/Ship";
 
 export function App() {
-  const startingArmada = [
-    ShipType.BATTLESHIP,
-    ShipType.DESTROYER,
-    ShipType.DESTROYER,
-  ];
+  const { cells, fireShot, hasGameEnded, fleet, restart, shots, validate } =
+    useBattleshipsMinigame({
+      fleetCompositionTypes: [
+        ShipType.BATTLESHIP,
+        ShipType.DESTROYER,
+        ShipType.DESTROYER,
+      ],
+    });
   const [isDebugEnabled, setIsDebugEnabled] = useState<boolean>(false);
-  const battlegroundCells = useMemo(() => generateBoard(), []);
-  const [ships, setShips] = useState<Ship[]>(generateShips(startingArmada));
+  const [banner, setBanner] = useState<{
+    message: string;
+    variant?: BannerVariant;
+  }>({ message: "Enemy fleet is upon us, good luck, Captain!" });
 
-  // This is a temporary minimal input for playing, this will be addressed in next PR.
-  const [shotsAsString, setShotsAsString] = useState<string>("23,24");
-
-  const reset = useCallback(() => {
-    setShips(generateShips(startingArmada));
-  }, []);
+  useEffect(() => {
+    if (!!hasGameEnded) {
+      setBanner({
+        message: "All enemy ships are detroyed, hurrah!",
+        variant: "success",
+      });
+    }
+  }, [hasGameEnded]);
 
   return (
     <>
-      <button onClick={reset} type="button">
-        Reset
-      </button>
+      {banner && <Banner variant={banner.variant}>{banner.message}</Banner>}
+      <Board cells={cells} debug={isDebugEnabled} ships={fleet} shots={shots} />
+      <PlayerControls
+        hasGameEnded={hasGameEnded}
+        onAttemptedSubmit={(inputValue: string) => {
+          setBanner({
+            message: `Sorry, "${inputValue}" is not a valid tile!`,
+            variant: "error",
+          });
+        }}
+        onRestart={() => {
+          restart();
+          setBanner({
+            message: "Enemy fleet is upon us, good luck, Captain!",
+          });
+        }}
+        onSubmit={(maybeCellName: string) => {
+          try {
+            fireShot(maybeCellName);
+
+            setBanner({
+              message: `Aye, aye! Shot fired to "${maybeCellName.toUpperCase()}"!`,
+            });
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+        validate={validate}
+      />
       <input
         checked={isDebugEnabled}
         onChange={() => {
@@ -34,32 +68,6 @@ export function App() {
         }}
         type="checkbox"
       />
-      <input
-        onChange={(e) => {
-          setShotsAsString(e.target.value);
-        }}
-        value={shotsAsString}
-        type="text"
-      />
-      <Board
-        cells={battlegroundCells}
-        debug={isDebugEnabled}
-        ships={ships}
-        shots={shotsAsString.split(",").map((v) => parseInt(v, 10))}
-      />
     </>
   );
-}
-
-function generateShips(shipTypes: ShipType[]) {
-  const ships: Ship[] = [];
-
-  shipTypes.forEach((currentType: ShipType) => {
-    const newlyCreatedShip = createShipAtRandomPosition(currentType, ships);
-    if (!!newlyCreatedShip) {
-      ships.push(newlyCreatedShip);
-    }
-  });
-
-  return ships;
 }
