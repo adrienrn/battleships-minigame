@@ -1,0 +1,61 @@
+.Tile {
+  height: 100%;
+  width: 100%;
+}
+
+.Tile--empty {
+  background: #15616d;
+}
+
+.Tile--hit {
+  background: #15616d;
+}
+
+.Tile--hit svg {
+  fill: #e63946;
+  height: 100%;
+  padding: 0.6em;
+  width: 100%;
+}
+
+.Tile--unknown {
+  background-color: #001524;
+}
+
+.Tile--unknown svg {
+  fill: #267373;
+  height: 100%;
+  padding: 0.5em;
+  width: 100%;
+}
+
+.Tile__state {
+  bottom: 0;
+  font-size: 0.6em;
+  font-weight: bold;
+  left: 0;
+  padding: 0 0.2em;
+  position: absolute;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.Tile__state--empty {
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #15616d;
+}
+
+.Tile__state--hit {
+  background-color: #fff;
+  color: #e63946;
+}
+
+.Tile__label {
+  font-size: 0.6em;
+  left: 0;
+  padding: 0 0.4em;
+  position: absolute;
+  text-align: left;
+  top: 0;
+  width: 100%;
+}

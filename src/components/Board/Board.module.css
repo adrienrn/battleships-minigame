@@ -1,34 +1,30 @@
-.Board__grid {
+.Board {
+  --board-tile-size: 50px;
+  --board-tile-border-width: 1px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  padding-left: 1px;
-  padding-top: 1px;
+  padding-left: var(--board-tile-border-width);
+  padding-top: var(--board-tile-border-width);
 }
 
 .Board__cell {
-  border: 1px solid #fff;
+  border: 1px solid #15616d;
+  height: var(--board-tile-size);
+  margin-left: calc(-1 * var(--board-tile-border-width));
+  margin-top: calc(-1 * var(--board-tile-border-width));
   position: relative;
-  height: 50px;
-  margin-left: -1px;
-  margin-top: -1px;
-  width: 50px;
+  width: --board-tile-size(--board-tile-size);
 }
 
-.Board__cell__label {
-  font-size: 0.75em;
-  left: 0;
-  padding: 0 0.4em;
-  position: absolute;
-  text-align: left;
-  top: 0;
-  width: 100%;
-}
-
-.Board__cell__ship {
+.Board__cell__ship-marker {
   bottom: 0;
-  font-size: 0.92em;
-  height: 25px;
   position: absolute;
   right: 0;
-  width: 25px;
+}
+
+.Board__cell__ship-marker__icon {
+  display: block;
+  fill: #fcca46;
+  height: 1em;
+  width: 1em;
 }
