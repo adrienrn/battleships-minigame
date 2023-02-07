@@ -1,0 +1,10 @@
+.PlayerControls {
+  border: 1px solid #15616d;
+  display: flex;
+  gap: 1em;
+  padding: 0.5em;
+}
+
+.PlayerControls input[type="text"] {
+  width: 100%;
+}
