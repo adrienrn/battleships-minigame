@@ -13,6 +13,7 @@ export function App() {
   ];
   const battlegroundCells = useMemo(() => generateBoard(), []);
   const [ships, setShips] = useState(generateShips(startingArmada));
+  const [isDebugEnabled, setIsDebugEnabled] = useState(false);
 
   const reset = useCallback(() => {
     setShips(generateShips(startingArmada));
@@ -23,7 +24,14 @@ export function App() {
       <button onClick={reset} type="button">
         Reset
       </button>
-      <Board cells={battlegroundCells} ships={ships} />
+      <input
+        checked={isDebugEnabled}
+        onChange={() => {
+          setIsDebugEnabled(!isDebugEnabled);
+        }}
+        type="checkbox"
+      />
+      <Board cells={battlegroundCells} debug={isDebugEnabled} ships={ships} />
     </>
   );
 }
