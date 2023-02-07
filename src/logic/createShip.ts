@@ -1,4 +1,5 @@
 import { Ship, ShipOrientation, ShipType } from "../types/Ship";
+import { getRandomInt } from "../utils/getRandomInt";
 
 const shipLengths = {
   [ShipType.BATTLESHIP]: 5,
@@ -9,7 +10,7 @@ export function createShip(
   origin: number,
   type: ShipType,
   orientation: ShipOrientation
-) {
+): Ship {
   const lengthOfShip = shipLengths[type];
   const cells = [];
   if (orientation === ShipOrientation.HORIZONTAL) {
@@ -24,6 +25,7 @@ export function createShip(
 
   return {
     cells,
+    orientation,
     type,
   };
 }
@@ -64,8 +66,8 @@ export function pickOriginForObject(
     // We pick a (X, Y), where Y can range from 0 to max and X is restricted
     // to accomodate the ship length
     // i.e. if areaSize=10 and length=5, we pick a X between 0 and 5
-    const maybeOriginX = Math.floor(Math.random() * (areaSize - length));
-    const maybeOriginY = Math.floor(Math.random() * areaSize);
+    const maybeOriginX = getRandomInt(0, areaSize - length);
+    const maybeOriginY = getRandomInt(0, areaSize);
 
     return 10 * maybeOriginY + maybeOriginX;
   }
@@ -74,14 +76,14 @@ export function pickOriginForObject(
   // We pick a (X, Y), where X can range from 0 to max and Y is restricted
   // to accomodate the ship length
   // i.e. if areaSize=10 and length=4, we pick a Y between 0 and 6
-  const maybeOriginX = Math.floor(Math.random() * areaSize);
-  const maybeOriginY = Math.floor(Math.random() * (areaSize - length));
+  const maybeOriginX = getRandomInt(0, areaSize);
+  const maybeOriginY = getRandomInt(0, areaSize - length);
 
   return 10 * maybeOriginY + maybeOriginX;
 }
 
 export function pickOrientationForObject() {
-  return Math.floor(Math.random() * 2) === 0
+  return getRandomInt(0, 2) === 0
     ? ShipOrientation.HORIZONTAL
     : ShipOrientation.VERTICAL;
 }

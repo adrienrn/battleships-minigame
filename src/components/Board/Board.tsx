@@ -4,8 +4,9 @@ import styles from "./Board.module.css";
 
 export const Board: React.FC<{
   cells: string[];
+  debug?: boolean;
   ships: Ship[];
-}> = ({ cells = [], ships = [] }) => {
+}> = ({ cells = [], debug = true, ships = [] }) => {
   return (
     <div className={styles["Board__grid"]} data-board-size={10}>
       {cells.map((e, i) => {
@@ -14,11 +15,15 @@ export const Board: React.FC<{
         });
         return (
           <div className={styles["Board__cell"]} key={i}>
-            <span className={styles["Board__cell__label"]}>
-              {i + " / " + e}
-            </span>
-            {hasShipAtCoordinates && (
-              <span className={styles["Board__cell__ship"]}>S</span>
+            {debug && (
+              <React.Fragment>
+                <span className={styles["Board__cell__label"]}>
+                  {i + " / " + e}
+                </span>
+                {hasShipAtCoordinates && (
+                  <span className={styles["Board__cell__ship"]}>S</span>
+                )}
+              </React.Fragment>
             )}
           </div>
         );

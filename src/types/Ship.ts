@@ -10,5 +10,6 @@ export enum ShipType {
 
 export type Ship = {
   cells: number[];
+  orientation: ShipOrientation;
   type: ShipType;
 };
