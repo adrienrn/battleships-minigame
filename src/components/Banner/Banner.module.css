@@ -1,0 +1,16 @@
+.Banner {
+  background-color: #267373;
+  color: #fff;
+  padding: 0.6em;
+  text-align: left;
+}
+
+.Banner--error {
+  background-color: #e63946;
+  color: #fff;
+}
+
+.Banner--success {
+  background-color: #40916c;
+  color: #fff;
+}
